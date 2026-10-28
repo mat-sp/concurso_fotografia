@@ -1,0 +1,110 @@
+<!doctype html><html lang="es"><head><base target="_top"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Participación · Fotografía matemática</title><style>
+:root{--blue:#0638d6;--line:#d9dce4;--muted:#5b606b}*{box-sizing:border-box}body{margin:0;color:#101114;font:14px/1.5 Arial,Helvetica,sans-serif;background:white}main{padding:32px;max-width:1000px;margin:auto}h2{font-size:23px;line-height:1.2;letter-spacing:-.6px;margin:0 0 12px}h3{font-size:16px;margin:0 0 15px}.small{font-size:12px;color:var(--muted)}p{margin:8px 0 18px}.section{border-top:1px solid var(--line);margin-top:28px;padding-top:24px}.section h3 span{color:var(--blue);margin-right:14px;font-size:12px}label{display:block;font-size:13px;font-weight:600;margin-bottom:7px}.optional{font-weight:400;color:var(--muted);font-size:12px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.full{grid-column:1/-1}input:not([type=checkbox]),textarea{width:100%;font:14px/1.5 Arial,Helvetica,sans-serif;padding:11px 12px;border:1px solid #b4b9c5;border-radius:0;background:white;color:#101114}textarea{resize:vertical;min-height:100px}input:focus-visible,textarea:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid #88a0ff;outline-offset:2px}input[type=file]{font-size:12px!important;cursor:pointer}input::file-selector-button{background:#f1f4fc;border:0;padding:9px 12px;color:var(--blue);font-weight:700;margin-right:12px;cursor:pointer}.help{margin:7px 0 0;font-size:12px;color:var(--muted)}.privacy{padding:18px;background:#f4f6fb;font-size:12px;white-space:pre-line;margin:20px 0}.check{display:flex;align-items:flex-start;gap:12px;font-size:12px;font-weight:400;margin:15px 0}.check input{flex:0 0 auto;width:17px;height:17px;margin:2px 0 0;accent-color:var(--blue)}.check a{color:var(--blue);text-underline-offset:3px}.upload{border:1px dashed #8a98c0;padding:20px;background:#fafbfe}.upload label{color:var(--blue)}#photo-preview{display:block;max-height:240px;max-width:100%;object-fit:contain;margin:18px auto 0}button{font:700 14px Arial,Helvetica,sans-serif;border:0;border-radius:0;background:var(--blue);color:white;padding:16px 24px;cursor:pointer}button:hover{background:#052ba4}button:disabled{opacity:.55;cursor:wait}.status{padding:16px 18px;border-left:3px solid var(--blue);background:#f1f4fc;margin-top:20px;font-size:13px}.status.error{border-color:#a02626;background:#fff4f3;color:#842323}.status.success{background:#edf7ef;border-color:#236237}.submit-row{margin-top:24px;display:flex;align-items:center;gap:20px}.submit-row p{font-size:11px;color:var(--muted);max-width:310px;margin:0}.honeypot{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}.receipt{padding:25px;background:#f4f6fb;border-top:3px solid var(--blue);margin-top:25px}.receipt h2{color:var(--blue)}.receipt-code{font-size:27px;font-weight:800;letter-spacing:1px;margin:15px 0}.download{display:inline-block;margin-top:15px;background:white;border:1px solid var(--blue);color:var(--blue);text-decoration:none;padding:12px 18px;font-size:13px;font-weight:700}#counter{display:block;text-align:right;font-size:11px;color:var(--muted);margin-top:4px}[hidden]{display:none!important}.preview-note{font-size:12px;color:var(--blue);margin-top:0}@media(max-width:580px){main{padding:22px 18px}.grid{grid-template-columns:1fr;gap:17px}.section{margin-top:24px;padding-top:20px}.submit-row{display:block}.submit-row p{margin-top:14px}.receipt-code{font-size:22px}.upload{padding:15px}}
+</style></head><body><main>
+<p class="preview-note" id="preview-note" hidden>Modo de demostración · No se enviarán archivos.</p>
+<h2>Formulario de participación</h2><p class="small">Todos los campos son obligatorios salvo la explicación matemática. JPEG o PNG, hasta 10 MB y 50 megapíxeles.</p>
+<div class="status" id="availability" role="status" hidden></div>
+<form id="entry-form">
+<div class="honeypot" aria-hidden="true"><label for="website">Deja este campo vacío</label><input id="website" name="website" autocomplete="off" tabindex="-1"></div>
+<section class="section"><h3><span>01</span>Tus datos</h3><p class="small">Son para la organización. El jurado no verá tu nombre, curso ni grupo.</p><div class="grid"><div class="full"><label for="fullName">Nombre y apellidos</label><input name="fullName" id="fullName" autocomplete="name" required maxlength="120"></div><div><label for="course">Curso o enseñanza</label><input id="course" name="course" required maxlength="80" placeholder="Ej.: 2.º ESO, 1.º Bachillerato, ciclo…"></div><div><label for="group">Grupo</label><input id="group" name="group" required maxlength="40" placeholder="Ej.: A, B, C o nombre del grupo"></div></div></section>
+<section class="section"><h3><span>02</span>Tu fotografía</h3><div class="grid"><div class="full"><label for="title">Título</label><input id="title" name="title" required maxlength="100"><p class="help">Sin tu nombre ni otras pistas sobre tu identidad.</p></div><div class="full"><label for="location">Lugar de San Fernando donde la has realizado</label><input id="location" name="location" required maxlength="180" placeholder="Calle, plaza, parque o lugar concreto"></div><div class="full"><label for="explanation">Relación con las matemáticas <span class="optional">· opcional</span></label><textarea id="explanation" name="explanation" maxlength="600" rows="3" aria-describedby="explanation-help counter"></textarea><span id="counter">0 / 600</span><p class="help" id="explanation-help">Puedes explicar qué concepto matemático aparece. No incluir una explicación no penaliza. No escribas datos que te identifiquen.</p></div><div class="full upload"><label for="photo">Selecciona tu fotografía</label><input type="file" id="photo" name="photo" accept="image/jpeg,image/png,.jpg,.jpeg,.png" required aria-describedby="file-help"><p class="help" id="file-help">Una sola imagen. Conserva el original. La vista previa te permite comprobar qué vas a enviar.</p><img id="photo-preview" alt="Vista previa de la fotografía seleccionada" hidden><p id="file-info" class="help" hidden></p></div></div></section>
+<section class="section"><h3><span>03</span>Antes de enviar</h3><div class="privacy" id="privacy"></div><label class="check"><input type="checkbox" id="acceptRules" required><span>He leído y acepto las <a id="bases-link" href="#" target="_blank" rel="noopener">bases del concurso</a>.</span></label><label class="check"><input type="checkbox" id="declareOriginal" required><span>Confirmo que soy alumno/a del IES Sancti Petri, que la fotografía es mía, está realizada en San Fernando expresamente para el concurso, no muestra personas reconocibles y cumple las condiciones de edición y ausencia de IA.</span></label><label class="check"><input type="checkbox" id="privacyRead" required><span>He leído la información sobre el tratamiento de los datos de participación.</span></label><p class="small">La aceptación de las bases no autoriza por sí sola la difusión de datos personales. El centro recogerá las autorizaciones correspondientes antes de publicar las obras seleccionadas.</p></section>
+<div class="submit-row"><button id="submit-button" type="submit">Enviar fotografía ↗</button><p>Espera hasta ver tu código de justificante. El envío solo queda confirmado cuando se haya guardado correctamente.</p></div>
+</form>
+<div id="status" class="status" role="status" aria-live="polite" hidden></div>
+<section id="receipt" class="receipt" tabindex="-1" hidden><h2>Fotografía recibida.</h2><p>Conserva este código como justificante de tu participación.</p><p id="receipt-code" class="receipt-code"></p><p id="receipt-date" class="small"></p><p>El fallo se anunciará entre el 4 y el 9 de diciembre de 2026.</p><a id="download-receipt" class="download">Descargar justificante</a></section>
+</main><script>
+const CONFIG = <?!= clientConfig ?>;
+const form = document.getElementById('entry-form');
+const photo = document.getElementById('photo');
+const statusBox = document.getElementById('status');
+const send = document.getElementById('submit-button');
+const requestId = typeof crypto.randomUUID === 'function' ? crypto.randomUUID() : Array.from(crypto.getRandomValues(new Uint8Array(24)), b => b.toString(16).padStart(2, '0')).join('');
+let fileUrl = '', receiptUrl = '', busy = false;
+const showStatus = (message, error = false) => { statusBox.textContent = message; statusBox.className = 'status' + (error ? ' error' : ''); statusBox.hidden = false; };
+document.getElementById('privacy').textContent = CONFIG.privacyText || 'La información de protección de datos del centro se añadirá antes de abrir la recepción de fotografías. En esta vista previa no se recogen datos ni archivos.';
+if (CONFIG.basesUrl) document.getElementById('bases-link').href = CONFIG.basesUrl;
+else document.getElementById('bases-link').addEventListener('click', e => { e.preventDefault(); showStatus('Consulta las bases completas en la página principal.'); });
+if (CONFIG.demo) document.getElementById('preview-note').hidden = false;
+if (CONFIG.closed || (!CONFIG.ready && !CONFIG.demo)) {
+  const note = document.getElementById('availability'); note.hidden = false;
+  note.textContent = CONFIG.closed ? 'El plazo de participación ha finalizado.' : 'La recepción de fotografías todavía no está abierta.';
+  send.disabled = true;
+}
+document.getElementById('explanation').addEventListener('input', e => { document.getElementById('counter').textContent = e.target.value.length + ' / 600'; });
+function checkFile(file) {
+  if (!file) throw new Error('Selecciona una fotografía.');
+  if (!['image/jpeg', 'image/png'].includes(file.type)) throw new Error('Utiliza un archivo JPEG o PNG. No se admite HEIC: expórtalo a JPEG sin aplicar retoques.');
+  if (file.size > 10 * 1024 * 1024) throw new Error('El archivo supera los 10 MB. Selecciona una copia de menor tamaño, sin recortar ni modificar la fotografía.');
+  if (!file.size) throw new Error('El archivo está vacío.');
+}
+photo.addEventListener('change', () => {
+  const img = document.getElementById('photo-preview'); const info = document.getElementById('file-info');
+  img.hidden = true; info.hidden = true; photo.setCustomValidity('');
+  if (fileUrl) URL.revokeObjectURL(fileUrl);
+  if (!photo.files[0]) return;
+  try {
+    checkFile(photo.files[0]); fileUrl = URL.createObjectURL(photo.files[0]); img.src = fileUrl; img.hidden = false;
+    info.textContent = (photo.files[0].size / (1024 * 1024)).toFixed(2) + ' MB · ' + (photo.files[0].type === 'image/jpeg' ? 'JPEG' : 'PNG'); info.hidden = false;
+    statusBox.hidden = true;
+  } catch (error) { photo.setCustomValidity(error.message); showStatus(error.message, true); }
+});
+const dataUrl = file => new Promise((resolve, reject) => { const r = new FileReader(); r.onload = () => resolve(r.result.split(',')[1]); r.onerror = () => reject(new Error('No se ha podido leer la imagen.')); r.readAsDataURL(file); });
+const loadImage = file => new Promise((resolve,reject) => {
+  const url = URL.createObjectURL(file); const img = new Image();
+  img.onload = () => { URL.revokeObjectURL(url); resolve(img); };
+  img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('No se puede abrir la fotografía. Comprueba que el archivo no esté dañado.')); }; img.src = url;
+});
+async function preparePhoto(file) {
+  const img = await loadImage(file);
+  if (!img.naturalWidth || !img.naturalHeight || img.naturalWidth * img.naturalHeight > 50000000) throw new Error('La fotografía debe tener como máximo 50 megapíxeles.');
+  const canvas = document.createElement('canvas'); canvas.width = img.naturalWidth; canvas.height = img.naturalHeight;
+  const ctx = canvas.getContext('2d'); if (!ctx) throw new Error('Tu navegador no puede preparar la imagen. Prueba con otro navegador.');
+  ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.drawImage(img, 0, 0);
+  // Copia visual con la misma resolución y sin metadatos; el original se conserva sin cambios.
+  let blob;
+  for (const quality of [1, .96, .92]) {
+    blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', quality));
+    if (blob && blob.size <= 10 * 1024 * 1024) break;
+  }
+  canvas.width = canvas.height = 0;
+  if (!blob || blob.size > 10 * 1024 * 1024) throw new Error('No se ha podido preparar la copia de valoración. Utiliza una imagen de menor resolución.');
+  return { photo: { data: await dataUrl(file) }, juryPhoto: { data: await dataUrl(blob) } };
+}
+function callServer(payload) {
+  return new Promise((resolve, reject) => {
+    if (!window.google?.script?.run) { reject(new Error('No se ha podido conectar con el formulario. Ábrelo desde el enlace oficial del concurso.')); return; }
+    google.script.run.withSuccessHandler(resolve).withFailureHandler(() => reject(new Error('Se ha interrumpido la conexión. Vuelve a pulsar Enviar sin recargar; si se guardó, recuperarás el mismo justificante.'))).submitEntry(payload);
+  });
+}
+form.addEventListener('submit', async event => {
+  event.preventDefault(); if (busy || !form.reportValidity()) return;
+  if (!CONFIG.demo && (!CONFIG.ready || CONFIG.closed)) return;
+  busy = true; send.disabled = true; send.textContent = 'Preparando fotografía…';
+  // Bloquear cambios durante el envío evita que el justificante corresponda a otra versión del formulario.
+  const controls = [...form.querySelectorAll('input,textarea')]; controls.forEach(el => el.disabled = true);
+  try {
+    const file = photo.files[0]; checkFile(file);
+    if (CONFIG.demo) { await loadImage(file); showStatus('Vista previa: el formulario es válido. No se han enviado ni guardado la fotografía o los datos.'); return; }
+    const payload = { requestId, website: document.getElementById('website').value };
+    for (const name of ['fullName','course','group','title','location','explanation']) payload[name] = document.getElementById(name).value.trim();
+    for (const name of ['acceptRules','declareOriginal','privacyRead']) payload[name] = document.getElementById(name).checked;
+    if (['fullName','course','group','title','location'].some(name => !payload[name])) throw new Error('Completa todos los campos obligatorios.');
+    Object.assign(payload, await preparePhoto(file));
+    send.textContent = 'Guardando fotografía…'; showStatus('Se está enviando tu fotografía. Mantén esta página abierta hasta que aparezca el justificante.');
+    const result = await callServer(payload);
+    if (!result || !result.ok) throw new Error(result?.message || 'No se ha podido confirmar el envío. Vuelve a intentarlo sin recargar.');
+    statusBox.hidden = true; form.hidden = true;
+    const receipt = document.getElementById('receipt'); receipt.hidden = false;
+    document.getElementById('receipt-code').textContent = result.code;
+    const when = new Date(result.receivedAt).toLocaleString('es-ES', { timeZone:'Europe/Madrid', dateStyle:'long', timeStyle:'short' });
+    document.getElementById('receipt-date').textContent = 'Recibida el ' + when + ' (hora peninsular).';
+    const text = 'JUSTIFICANTE DE PARTICIPACIÓN\nConcurso de fotografía matemática · IES Sancti Petri\nCurso 2026-27\n\nCódigo: ' + result.code + '\nRecibida el ' + when + ' (hora peninsular).\nTítulo: ' + payload.title + '\n\nConserva el original de la fotografía.\nFallo: entre el 4 y el 9 de diciembre de 2026.\n';
+    receiptUrl = URL.createObjectURL(new Blob([text], {type:'text/plain;charset=utf-8'}));
+    const download = document.getElementById('download-receipt'); download.href = receiptUrl; download.download = 'Justificante-' + result.code + '.txt';
+    receipt.focus();
+  } catch (error) { showStatus(error.message || 'No se ha podido realizar el envío.', true); }
+  finally { busy = false; controls.forEach(el => el.disabled = false); send.disabled = false; send.textContent = 'Enviar fotografía ↗'; }
+});
+window.addEventListener('beforeunload', event => { if (busy) { event.preventDefault(); event.returnValue = ''; } });
+</script></body></html>
