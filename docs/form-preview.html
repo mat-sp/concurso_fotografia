@@ -12,7 +12,7 @@
 <div class="submit-row"><button id="submit-button" type="submit">Enviar fotografía ↗</button><p>Espera hasta ver tu código de justificante. El envío solo queda confirmado cuando se haya guardado correctamente.</p></div>
 </form>
 <div id="status" class="status" role="status" aria-live="polite" hidden></div>
-<section id="receipt" class="receipt" tabindex="-1" hidden><h2>Fotografía recibida.</h2><p>Conserva este código como justificante de tu participación.</p><p id="receipt-code" class="receipt-code"></p><p id="receipt-date" class="small"></p><p>El fallo se anunciará entre el 4 y el 9 de diciembre de 2026.</p><a id="download-receipt" class="download">Descargar justificante</a></section>
+<section id="receipt" class="receipt" tabindex="-1" hidden><h2>Fotografía recibida.</h2><p>Conserva este código como justificante de tu participación.</p><p id="receipt-code" class="receipt-code"></p><p id="receipt-date" class="small"></p><p>El fallo se anunciará entre el 4 y el 9 de diciembre de 2026.</p><button type="button" id="prepare-receipt" class="download">Preparar PDF</button><a id="download-receipt" class="download" hidden>Descargar justificante (PDF)</a><p id="pdf-status" class="small" role="status" aria-live="polite"></p></section>
 </main><script>
 const CONFIG = {demo:true,ready:false,closed:false,privacyText:"",basesUrl:"./index.html#bases"};
 const form = document.getElementById('entry-form');
@@ -99,12 +99,33 @@ form.addEventListener('submit', async event => {
     document.getElementById('receipt-code').textContent = result.code;
     const when = new Date(result.receivedAt).toLocaleString('es-ES', { timeZone:'Europe/Madrid', dateStyle:'long', timeStyle:'short' });
     document.getElementById('receipt-date').textContent = 'Recibida el ' + when + ' (hora peninsular).';
-    const text = 'JUSTIFICANTE DE PARTICIPACIÓN\nConcurso de fotografía matemática · IES Sancti Petri\nCurso 2026-27\n\nCódigo: ' + result.code + '\nRecibida el ' + when + ' (hora peninsular).\nTítulo: ' + payload.title + '\n\nConserva el original de la fotografía.\nFallo: entre el 4 y el 9 de diciembre de 2026.\n';
-    receiptUrl = URL.createObjectURL(new Blob([text], {type:'text/plain;charset=utf-8'}));
-    const download = document.getElementById('download-receipt'); download.href = receiptUrl; download.download = 'Justificante-' + result.code + '.txt';
+    prepareReceiptPdf();
     receipt.focus();
   } catch (error) { showStatus(error.message || 'No se ha podido realizar el envío.', true); }
   finally { busy = false; controls.forEach(el => el.disabled = false); send.disabled = false; send.textContent = 'Enviar fotografía ↗'; }
 });
+// El PDF se prepara por separado: un error aquí nunca vuelve a enviar la fotografía.
+function prepareReceiptPdf() {
+  const button = document.getElementById('prepare-receipt');
+  const link = document.getElementById('download-receipt');
+  const note = document.getElementById('pdf-status');
+  button.hidden = false; button.disabled = true; button.textContent = 'Preparando PDF…'; link.hidden = true;
+  note.textContent = 'Tu fotografía ya está guardada. Se está preparando el justificante.';
+  const fail = message => { button.disabled = false; button.textContent = 'Preparar PDF'; note.textContent = message || 'Tu fotografía está guardada. No se ha podido preparar el PDF; vuelve a pulsar Preparar PDF.'; };
+  if (!window.google?.script?.run) { fail(); return; }
+  google.script.run.withSuccessHandler(result => {
+    if (!result || !result.ok) { fail(result?.message); return; }
+    try {
+      const binary = atob(result.data);
+      if (!binary.startsWith('%PDF-')) throw new Error('El justificante no es un PDF válido.');
+      const bytes = Uint8Array.from(binary, ch => ch.charCodeAt(0));
+      if (receiptUrl) URL.revokeObjectURL(receiptUrl);
+      receiptUrl = URL.createObjectURL(new Blob([bytes], {type:'application/pdf'}));
+      link.href = receiptUrl; link.download = result.filename; link.hidden = false; button.hidden = true;
+      note.textContent = 'El justificante en PDF está listo para descargar.';
+    } catch (_) { fail(); }
+  }).withFailureHandler(() => fail()).getReceiptPdf(requestId);
+}
+document.getElementById('prepare-receipt').addEventListener('click', prepareReceiptPdf);
 window.addEventListener('beforeunload', event => { if (busy) { event.preventDefault(); event.returnValue = ''; } });
 </script></body></html>

@@ -1,4 +1,5 @@
-const frame = document.querySelector('#form-frame');
+const submitLinks = document.querySelectorAll('[data-submit-photo]');
+const notice = document.querySelector('#setup-note');
 const rawUrl = window.CONCURSO_CONFIG?.appsScriptUrl;
 let formUrl = null;
 if (typeof rawUrl === 'string' && rawUrl.trim()) {
@@ -11,18 +12,17 @@ if (typeof rawUrl === 'string' && rawUrl.trim()) {
     }
   } catch (_) { /* No se abre una dirección que no sea un despliegue válido. */ }
 }
-if (formUrl) {
-  frame.src = formUrl;
-  frame.hidden = false;
-  document.querySelector('#setup-note').hidden = true;
-  const direct = document.querySelector('#direct-form');
-  direct.href = formUrl;
-  direct.hidden = false;
-} else {
-  // Una configuración ausente o incorrecta nunca abre el formulario de prueba.
-  frame.hidden = true;
-  frame.removeAttribute('src');
-  document.querySelector('#setup-note').hidden = false;
-  document.querySelector('#setup-note').textContent = 'El formulario de envío todavía no está disponible. Puedes consultar las bases más abajo.';
-}
+submitLinks.forEach(link => {
+  if (formUrl) {
+    link.href = formUrl;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.removeAttribute('aria-disabled');
+  } else {
+    link.setAttribute('aria-disabled', 'true');
+    link.addEventListener('click', event => { event.preventDefault(); notice.hidden = false; });
+  }
+});
+// El formulario se abre por navegación normal: Google gestiona el acceso corporativo.
+notice.hidden = !!formUrl;
 document.querySelector('#print-bases').addEventListener('click', () => window.print());
