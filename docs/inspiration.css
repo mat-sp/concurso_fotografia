@@ -1,0 +1,21 @@
+.inspiration{padding:76px 5% 0}
+.inspiration-heading{display:grid;grid-template-columns:1fr 1fr;gap:8%;align-items:end}
+.inspiration-heading .eyebrow{margin-bottom:18px}
+.inspiration-heading>p{color:var(--muted);font-size:16px;max-width:480px;margin:0}
+.inspiration-note{font-size:14px;border-left:3px solid var(--blue);padding:12px 18px;margin:30px 0 42px;background:var(--pale);color:#454a54}
+.examples{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:52px 7%;align-items:start}
+.example{margin:0;min-width:0}
+.example-photo{position:relative;display:flex;align-items:center;justify-content:center;background:var(--pale);text-decoration:none;min-height:240px}
+.example-photo img{display:block;width:100%;height:auto;max-height:390px;object-fit:contain}
+.photo-enlarge{position:absolute;right:10px;bottom:10px;background:white;color:var(--ink);font-size:12px;padding:5px 10px}
+.example-photo:hover .photo-enlarge{background:var(--blue);color:white}
+.example figcaption{display:block;padding:18px 0 0;font-size:14px;color:#454a54}
+.example h3{font-size:21px;color:var(--ink);line-height:1.25;margin:0 0 12px}
+.example p{margin:0 0 12px}
+.example .example-prompt{color:var(--blue)}
+.example .photo-credit{border-top:1px solid var(--line);padding-top:12px;font-size:12px;line-height:1.8;margin:16px 0 0;color:var(--muted)}
+.photo-credit a{white-space:normal}
+.inspiration-closing{font-size:17px;color:var(--blue);border-bottom:1px solid var(--ink);padding:32px 0 40px;margin:16px 0 0;max-width:none}
+@media(max-width:800px){.topbar{gap:18px;flex-wrap:wrap}.inspiration{padding-top:52px}.inspiration-heading{gap:5%}.inspiration-heading>p{font-size:14px}.examples{gap:40px 5%}.example h3{font-size:19px}.example-photo{min-height:180px}}
+@media(max-width:580px){.topbar nav{width:100%;justify-content:space-between;margin-top:4px}.inspiration{padding:44px 6% 0}.inspiration-heading{display:block}.inspiration-heading>p{margin-top:20px;font-size:15px}.inspiration-note{margin:24px 0 30px;font-size:13px;padding:10px 14px}.examples{grid-template-columns:minmax(0,1fr);gap:36px}.example-photo{min-height:0}.example-photo img{max-height:410px}.example h3{font-size:21px}.example figcaption{font-size:14px}.inspiration-closing{font-size:16px;padding-bottom:30px}}
+@media print{.inspiration{display:none!important}}
